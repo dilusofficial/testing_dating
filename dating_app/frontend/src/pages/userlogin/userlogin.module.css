@@ -1,0 +1,49 @@
+.login_form{
+
+    width: 100%;
+    max-width: 400px; /* Maximum width of the form */
+    padding: 20px;
+    background-color: #f8f9fa; /* Background color for better visibility */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+
+}
+
+.login_form_main{
+
+  
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+        margin-top: 100px;
+      
+
+}
+
+.app_name{
+
+text-align: center;
+margin-top: 100px;
+
+}
+
+.create_account{
+
+    text-align: center;
+    margin-top: 40px;
+
+}
+.sudheading_create_account{
+
+   
+text-align: center;
+margin-top: 20px;
+}
+.email_button{
+
+    width: 300px;
+    border-radius: 50px;
+    margin-left: 10px;
+
+}

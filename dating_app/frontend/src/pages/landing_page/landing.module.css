@@ -1,0 +1,53 @@
+.qoute{
+
+display: flex;
+position: absolute;
+
+top:250px;
+left: 600px;
+color: rgb(11, 11, 11);
+font-size: xx-large;
+
+}
+
+.login_button{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    border-radius: 20px;
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    color: gray;
+}
+.login_button:hover {
+    background-color: red;
+    color: white; 
+}
+
+.create_account_button{
+
+    display: flex;
+
+    position: absolute;
+    top: 320px;
+    left: 670px;
+    border-radius: 20px;
+    width: 150px;
+    height: 30px;
+
+    color: rgb(255, 255, 255);
+    background-color: rgb(231, 10, 10);
+    border-color: rgb(231, 10, 10);
+}
+.createaccount{
+
+    display: flex;
+
+    position: absolute;
+    left: 10px; 
+}

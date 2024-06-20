@@ -1,0 +1,38 @@
+.imageUploadGrid {
+    padding: 20px;
+  }
+  
+  .uploadBox {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Maintain aspect ratio */
+    border: 2px dashed #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .fileInput {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .uploadedImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+  }
+  .plusIcon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    top: 155px;
+  }
