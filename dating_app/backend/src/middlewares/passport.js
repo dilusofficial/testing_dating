@@ -8,15 +8,15 @@ const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.id); // Store user ID in the session
 });
+
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then((user) => {
-      done(null, user);
-  });
+    done(null, user);
+  }).catch(err => done(err, null));
 });
-
 
 
 

@@ -7,22 +7,24 @@ import SwipeGallery from '../pages/swip/swip';
 import UserLogin from '../pages/userlogin/userlogin';
 import LandingPage from '../pages/landing_page/landing';
 import Descripition from '../pages/describe/describe';
+import Testing from '../pages/messaging/test';
 const Routing = () => {
-    return (
-     <>
-   
+  return (
+    <>
+
       <Router>
         <Routes>
-      <Route path='/' element={<LandingPage/>}></Route>
-        
+          <Route path='/' element={<LandingPage />}></Route>
+
           <Route path="/swip" element={<SwipeGallery />}></Route>
           <Route path="/userlogin" element={<UserLogin />}></Route>
 
-          <Route path="/profile" element={<Descripition/>}></Route>
+          <Route path="/profile" element={<Descripition />}></Route>
+          <Route path="/Testing" element={<Testing />}></Route>
         </Routes>
       </Router>
-     </>
-    );
-  };
-  
-  export default Routing;
+    </>
+  );
+};
+
+export default Routing;

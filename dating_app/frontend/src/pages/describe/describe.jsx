@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import style from './describe.module.css';
 import ImageUploadGrid from '../image_upload/image_upload';
 export const Context1 = React.createContext();
 import axios from 'axios';
 
-
-
 const Descripition = () => {
+  const [location, setLocation] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [year, setYear] = useState('');
   const [month, setMonth] = useState('');
@@ -16,6 +15,7 @@ const Descripition = () => {
   const [interests, setInterests] = useState([]);
   const [interestInput, setInterestInput] = useState('');
   const [images, setImages] = useState(Array(6).fill(null));
+  const [firstname, setFirstname] = useState('');
 
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
@@ -31,37 +31,47 @@ const Descripition = () => {
     }
   };
 
-  const profile_details = () => {
+  const profile_details = async () => {
     const formData = new FormData();
     formData.append('firstname', firstname);
-    formData.append('email', email);
+    formData.append('location', location);
     formData.append('day', day);
     formData.append('month', month);
     formData.append('year', year);
     formData.append('gender', selectedGender);
     formData.append('interests', interests.join(','));
-    formData.append('image', images);
-  };
 
- 
+    images.forEach((image, index) => {
+      if (image) {
+        formData.append('files', image); // Use 'files' as the field name
+      }
+    });
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/personal/profile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data); 
+    } catch (error) {
+      console.error('Error uploading profile:', error);
+    }
+  };
 
   const logout_user = async () => {
     try {
-        const response = await axios.post('http://localhost:3000/api/auth/logout');
-        
-        if (response.data.success) {
-          // Handle successful logout
-          // Clear local storage or session storage as needed
-          localStorage.clear();
-          // Redirect to login page or any other desired action
-        } else {
-          // Handle logout failure
-          console.error(response.data.message);
-        }
+      const response = await axios.post('http://localhost:3000/api/auth/logout');
+      if (response.data.success) {
+        localStorage.clear();
+      } else {
+        console.error(response.data.message);
+      }
     } catch (error) {
-        console.error('Error during logout:', error);
+      console.error('Error during logout:', error);
     }
-}; 
+  };
+
   return (
     <div className={`d-flex justify-content-center align-items-center ${style.signup_bg}`}>
       <Container className={`${style.signup_container}`}>
@@ -71,23 +81,16 @@ const Descripition = () => {
               <h5 className={`${style.signupheading}`}>Describe you</h5>
             </center>
             <div className="form-group py-1">
-              <label>First Name</label>
+              <label> Name</label>
               <input
                 type="text"
                 name="name"
                 className={`form-control py-2 ${style.input_field}`}
                 placeholder="Enter your name"
+                onChange={(e) => setFirstname(e.target.value)}
               />
             </div>
-            <div className="form-group py-1">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                className={`form-control py-2  ${style.input_field}`}
-                placeholder="Enter your email"
-              />
-            </div>
+
             <div className="form-group py-1">
               <label>Birth Day</label>
               <div className="d-flex">
@@ -116,6 +119,16 @@ const Descripition = () => {
                   onChange={handleDayChange}
                 />
               </div>
+            </div>
+            <div className="form-group py-1">
+              <label> Location </label>
+              <input
+                type="text"
+                name="name"
+                className={`form-control py-2 ${style.input_field}`}
+                placeholder="Enter your location"
+                onChange={(e) => setLocation(e.target.value)}
+              />
             </div>
             <div className="form-group py-1">
               <label>Gender</label>
@@ -167,11 +180,9 @@ const Descripition = () => {
             <Button className={`ms-2 ${style.continue_btn}`} onClick={profile_details}>
               Continue
             </Button>
-          <Button className={`ms-2 `} onClick={logout_user}>
+            <Button className={`ms-2`} onClick={logout_user}>
               Log out
-            </Button>  
-
-
+            </Button>
           </Col>
           <Col lg={6} className="px-4">
             <Context1.Provider value={[images, setImages]}>
@@ -185,4 +196,3 @@ const Descripition = () => {
 };
 
 export default Descripition;
-
