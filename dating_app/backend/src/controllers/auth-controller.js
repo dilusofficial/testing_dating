@@ -10,12 +10,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const login=async(req,res)=>{
+const login = async (req, res) => {
 
     const { username, password } = req.body;
 
     console.log(req.body)
-    
+
     if (username === 'learnbuds' && password === 'learnbuds') {
         res.json({ success: true });
     } else {
@@ -25,59 +25,61 @@ const login=async(req,res)=>{
 
 }
 
-const phoneAuthentication=async(req,res)=>{
+const phoneAuthentication = async (req, res) => {
 
-    const accountSid =process.env.accountSid ; 
+    const accountSid = process.env.accountSid;
 
-    const authToken = process.env.authToken; 
+    const authToken = process.env.authToken;
+    const service_id = process.env.service
     const client = new twilio(accountSid, authToken);
 
     const { to } = req.body;
 
     console.log(to)
-    
 
-    if (!to ) {
+
+    if (!to) {
         return res.status(400).send({ error: 'Missing "to" or "message" field' });
     }
 
     client.messages.create({
         body: '70250',
-        messagingServiceSid: 'MG0537d89b5fb08e721331b461196bdc4b',
+        messagingServiceSid: service_id,
         to: to
     })
-    .then((message) => res.status(200).send({ success: true, messageSid: message.sid }))
-    .catch((error) => res.status(500).send({ success: false, error: error.message }));
+        .then((message) => res.status(200).send({ success: true, messageSid: message.sid }))
+        .catch((error) => res.status(500).send({ success: false, error: error.message }));
 
 
 }
 
 
-const otpVerification=async(req,res)=>{
+const otpVerification = async (req, res) => {
 
-const{code}=req.body
+    const { code } = req.body
 
-if(code === '70250'){
-    res.json({ success: true });
+    if (code === '70250') {
+        res.json({ success: true });
+
+    }
+
+    else {
+
+        res.status(401).json({ success: false, message: 'Invalid otp number' });
+
+    }
+
 
 }
 
-else{
-
-    res.status(401).json({ success: false, message: 'Invalid otp number' });
-
-}
-
-
-}
 
 
 
 
 
 
-
-module.exports= {login,
+module.exports = {
+    login,
     phoneAuthentication,
     otpVerification
 };
